@@ -31,8 +31,6 @@ public class mainSalesOrderClass {
         XmlPath xmlPath = createOrderResponse.xmlPath();
         String orderNo = xmlPath.getString("Order.@OrderNo");
         String orderHeaderKey = xmlPath.getString("Order.@OrderHeaderKey");
-        System.out.println("Order Number: " + orderNo);
-        System.out.println("Order Header Key: " + orderHeaderKey);
 
         Response resolveOrderResponse = given()
                 .queryParam(ContentType, ContentTypeValue)
@@ -107,11 +105,6 @@ public class mainSalesOrderClass {
         String shipmentNo = ((XmlPath) xmlPath3).getString("Shipment.@ShipmentNo");
         String shipmentKey = xmlPath3.getString("Shipment.@ShipmentKey");
 
-        System.out.println("Order Number: " + orderNo);
-        System.out.println("Order Header Key: " + orderHeaderKey);
-        System.out.println("Shipment Number: " + shipmentNo);
-        System.out.println("Shipment Key: " + shipmentKey);
-
         Response confirmShipmentResponse = given().log().all()
                 .queryParam(ContentType, ContentTypeValue)
                 .queryParam(HOST, HOST_VALUE)
@@ -129,5 +122,10 @@ public class mainSalesOrderClass {
                 .extract().response();
 
         assertEquals(200, confirmShipmentResponse.getStatusCode());
+
+        System.out.println("Order Number: " + orderNo);
+        System.out.println("Order Header Key: " + orderHeaderKey);
+        System.out.println("Shipment Number: " + shipmentNo);
+        System.out.println("Shipment Key: " + shipmentKey);
     }
 }
